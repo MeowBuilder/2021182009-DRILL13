@@ -40,6 +40,10 @@ def init():
     game_world.add_object(server.boy, 1)
     balls = [ball.Ball(random.randint(10,server.background.w - 10),random.randint(10,server.background.h - 10)) for _ in range(100)]
     game_world.add_objects(balls,1)
+    
+    for a in balls:
+        game_world.add_collision_pair('player:ball',None,a)
+    game_world.add_collision_pair('player:ball',server.boy,None)
 
 def finish():
     game_world.clear()

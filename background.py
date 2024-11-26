@@ -10,6 +10,8 @@ class FixedBackground:
         self.image = load_image('futsal_court.png')
         self.w, self.h = self.image.w, self.image.h
         self.cw, self.ch = get_canvas_width(),get_canvas_height()
+        self.window_left = 0
+        self.window_bottom = 0
         pass
 
     def draw(self):

@@ -189,6 +189,7 @@ class Boy:
         self.font = load_font('ENCR10B.TTF', 24)
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
+        self.ball_count = 0
         self.state_machine.set_transitions(
             {
                 Idle: {right_down: RunRight, left_down: RunLeft, left_up: RunRight, right_up: RunLeft, upkey_down: RunUp, downkey_down: RunDown, upkey_up: RunDown, downkey_up: RunUp},
@@ -226,12 +227,17 @@ class Boy:
 #        sx, sy = get_canvas_width()//2,get_canvas_height()//2
         self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, sx,sy)
         self.font.draw(sx - 100, sy + 60, f'({self.x:5.5}, {self.y:5.5})', (255, 255, 0))
+        self.font.draw(sx - 60, sy - 60, f'Ball : {self.ball_count}', (255, 255, 0))
+        bb = self.get_bb()
+        draw_rectangle(bb[0] - server.background.window_left,bb[1] - server.background.window_bottom,bb[2] - server.background.window_left,bb[3] - server.background.window_bottom)
 
 
     def get_bb(self):
         return self.x - 20, self.y - 50, self.x + 20, self.y + 50
 
     def handle_collision(self, group, other):
+        if group == 'player:ball':
+            self.ball_count += 1
         pass
 
 
